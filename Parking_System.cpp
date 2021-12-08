@@ -5,6 +5,19 @@
 #define FLOOR 2
 #define ROOM 10
 
+struct carInfo{
+	char carNum[5];
+	int number;
+	int floor;
+	char carOwner[4];
+	
+};
+
+struct floorInfo{
+	struct carInfo rooms[ROOM];
+};
+
+
 void printMain(void)
 {
     printf("1. 주차\n");
@@ -15,6 +28,12 @@ void printMain(void)
     printf("> 번호선택 : ");
 }
 
+void menu1(struct floorInfo *input, struct carInfo * car){
+	scanf("이름 : %s", carOwner);
+	scanf("차 번호 : %s", carNum);
+	scanf("층 선택 : %d", &floor);
+	scanf("번호 선택 : %d", &number);
+}
 int main(){
     int rsvNum = 0;
     int answer;
