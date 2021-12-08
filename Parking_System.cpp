@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include <Windows.h>
-#include <ctype.h>
 #define FLOOR 2
 #define ROOM 10
-
 struct carInfo{
 	char carNum[5];
 	int number;
@@ -27,40 +24,52 @@ void printMain(void)
     printf("0. 종료\n");
     printf("> 번호선택 : ");
 }
-
-void menu1(struct floorInfo *input, struct carInfo * car){
-	scanf("이름 : %s", carOwner);
-	scanf("차 번호 : %s", carNum);
-	scanf("층 선택 : %d", &floor);
-	scanf("번호 선택 : %d", &number);
+//struct floorInfo input, 
+void menu1(struct carInfo *car){
+	printf("본인의 이름을 입력해주세요 : ");
+	scanf("%s", car->carOwner);
+	printf("차 번호를 입력해주세요 : "); 
+	scanf("%s", car->carNum);
+	printf("주차할 층을 선택해주세요 : "); 
+	scanf("%d", &car->floor);
+	printf("주차 할 번호를 선택해주세요 : ");
+	scanf("%d", &car->number);
+	printf("주차를 완료하였습니다!");
 }
 int main(){
-    int rsvNum = 0;
+	struct carInfo car[10];
+	struct floorInfo floor[2];
     int answer;
-    int i; 
- 
-    while (1)
+  	while (1)
     {
-    	printMain();
-    	
-        scanf("%d", &answer);
- 		switch(answer){
- 			case 1 : 
- 				printf("menu1");
- 				break;
- 			case 2 : 
- 				printf("menu2");
- 				break;
- 			case 3 : 
- 				printf("menu3");
- 				break;
- 			case 0 : 
- 				printf("menu4");
- 				break;
- 			default : 
- 				printf("menu5");
-		}
-	}
+        printMain();
+        scanf("%c", &answer);
+        fflush(stdin);
+ 
+        if (answer == '1')
+        {
+            menu1(car);
+        }
+        else if (answer == '2')
+        {
+            printf("이태현 바");
+        }
+        else if (answer == '3')
+        {
+            printf("이태현 바ㅂ");
+        }
+        else if (answer == '4')
+        {
+            printf("이태현 바22");
+        }
+        else if (answer == '0')
+            break;
+ 
+        else
+        {
+            printf("잘못 입력하셨습니다. 다시 입력해주세요.");
+        }
+    }
 }
 
  
