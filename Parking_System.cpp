@@ -73,8 +73,8 @@ void menu3(fl * floor){
     printf("차 번호를 입력해주세요 : "); 
     scanf("%s", number);
     for(int i = 0; i<10; i++){
-       if(!(strncmp(name, floor->rooms[i].carOwner,3)&&(number, floor->rooms[i].carNum, 4)));
-          
+       if(!(strncmp(name, floor->rooms[i].carOwner,3)&&strncmp(number, floor->rooms[i].carNum, 4)))
+          printf("%s님의 주차 위치는 %d번입니다!!!!!!!!!!!!\n",floor->rooms[i].carOwner, i+1);
    }
 }
 
@@ -99,7 +99,7 @@ int main(){
         }
         else if (answer == 3)
         {
-           
+         	menu3(&floor);  
         }
         else if (answer == 4)
         {
