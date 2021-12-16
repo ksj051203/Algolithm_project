@@ -4,8 +4,8 @@
 #define FLOOR 2
 #define ROOM 10
 typedef struct carInfo{
-    char carNum[5];
-    char carOwner[4];
+    char carNum[100]={};
+    char carOwner[100]={};
 }ca;
 
 typedef struct floorInfo{
@@ -14,26 +14,29 @@ typedef struct floorInfo{
 
 void printMain(void)
 {
+   printf("==================================================\n");
     printf("1. 주차\n");
     printf("2. 출차\n");
     printf("3. 주차 위치 확인\n");
     printf("4. 주차현황 출력\n"); 
     printf("0. 종료\n");
+   printf("==================================================\n");
     printf("> 번호선택 : ");
+    
 }
 void menu1(fl * floor){
     int n;
     printf("주차 할 번호를 선택해주세요: ");
     scanf("%d", &n);
     printf("본인의 이름을 입력해주세요 : ");
-    scanf("%s",floor->rooms[n].carOwner);
+    scanf("%s",floor->rooms[n-1].carOwner);
     printf("차 번호를 입력해주세요 : "); 
-    scanf("%s", floor->rooms[n].carNum);
+    scanf("%s", floor->rooms[n-1].carNum);
     printf("주차를 완료하였습니다!\n");
 }
 
 void printAll(fl * floor, ca * car){
-   printf("[B1층]====================================================================\n");
+   printf("[B1층]============================================\n");
    
    for(int i = 0;i < 10;i++){
       if(i == 5)printf("\n");
@@ -45,14 +48,21 @@ void printAll(fl * floor, ca * car){
 void menu2(fl * floor){
    char name[4];
    char number[5];
+   int key;
     printf("본인의 이름을 입력해주세요 : ");
     scanf("%s", name);
     printf("차 번호를 입력해주세요 : "); 
     scanf("%s", number);
     for(int i = 0; i<10; i++){
-       if(!(strncmp(name, floor->rooms[i].carOwner,3)&&(number, floor->rooms[i].carNum, 4)));
-         printf("출차를 완료하였습니다!\n");
+       if(!(strncmp(name, floor->rooms[i].carOwner,3)&&strncmp(number, floor->rooms[i].carNum, 4))){
+          printf("출차를 완료하였습니다!\n");
+          
+          for(int j = 0;floor->rooms[i].carNum[j]!='\0';j++){
+             floor->rooms[i].carNum[j] = NULL;
+         }
+      }
    }
+   
 }
    
 void menu3(fl * floor){ 
@@ -64,7 +74,7 @@ void menu3(fl * floor){
     scanf("%s", number);
     for(int i = 0; i<10; i++){
        if(!(strncmp(name, floor->rooms[i].carOwner,3)&&(number, floor->rooms[i].carNum, 4)));
-         
+          
    }
 }
 
@@ -100,7 +110,6 @@ int main(){
         else
         {
             printf("잘못 입력하셨습니다. 다시 입력해주세요.\n");
-            
         }
     }
 }
