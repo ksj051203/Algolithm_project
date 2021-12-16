@@ -3,13 +3,15 @@
 #include <stdlib.h>
 #define FLOOR 2
 #define ROOM 10
-struct carInfo{
+typedef struct carInfo{
     char carNum[5];
     char carOwner[4];
-};
-struct floorInfo{
-    struct carInfo *rooms[ROOM];
-};
+}ca;
+
+typedef struct floorInfo{
+    ca rooms[ROOM];
+}fl;
+
 void printMain(void)
 {
     printf("1. 주차\n");
@@ -19,38 +21,59 @@ void printMain(void)
     printf("0. 종료\n");
     printf("> 번호선택 : ");
 }
-void menu1(struct floorInfo * floor, struct carInfo *car){
-    /*car = (carInfo *)malloc(sizeof(carInfo));
-   floor = (floorInfo *)malloc(sizeof(floorInfo));*/
+void menu1(fl * floor){
     int n;
     printf("주차 할 번호를 선택해주세요: ");
     scanf("%d", &n);
     printf("본인의 이름을 입력해주세요 : ");
-    scanf("%s",floor->rooms[n]->carOwner);
+    scanf("%s",floor->rooms[n].carOwner);
     printf("차 번호를 입력해주세요 : "); 
-    scanf("%s", floor->rooms[n]->carNum);
+    scanf("%s", floor->rooms[n].carNum);
     printf("주차를 완료하였습니다!\n");
 }
 
-void printAll(struct carInfo * car){
+void printAll(fl * floor, ca * car){
    printf("[B1층]====================================================================\n");
+   
    for(int i = 0;i < 10;i++){
       if(i == 5)printf("\n");
-      printf("[   %d  ] ",(car+i)->carNum);   
+      printf("[   %s  ] ",floor->rooms[i].carNum);   
    }
    printf("\n");
 }
-void menu2(struct floorInfo * floor){
 
+void menu2(fl * floor){
+   char name[4];
+   char number[5];
+    printf("본인의 이름을 입력해주세요 : ");
+    scanf("%s", name);
+    printf("차 번호를 입력해주세요 : "); 
+    scanf("%s", number);
+    for(int i = 0; i<10; i++){
+       if(!(strncmp(name, floor->rooms[i].carOwner,3)&&(number, floor->rooms[i].carNum, 4)));
+         printf("출차를 완료하였습니다!\n");
+   }
+}
+   
+void menu3(fl * floor){ 
+   char name[4];
+   char number[5];
+    printf("본인의 이름을 입력해주세요 : ");
+    scanf("%s", name);
+    printf("차 번호를 입력해주세요 : "); 
+    scanf("%s", number);
+    for(int i = 0; i<10; i++){
+       if(!(strncmp(name, floor->rooms[i].carOwner,3)&&(number, floor->rooms[i].carNum, 4)));
+         
+   }
 }
 
 
 int main(){
-    struct floorInfo* floor;
-    struct carInfo* car;
-    
-    car = (carInfo *)malloc(sizeof(carInfo));
-   floor = (floorInfo *)malloc(sizeof(floorInfo));
+    fl floor;
+    ca car;
+    //car = (carInfo)malloc(sizeof(carInfo));
+      //floor = (floorInfo)malloc(sizeof(floorInfo));
     int answer;
     while (1){
         printMain();
@@ -58,11 +81,11 @@ int main(){
  
         if (answer == 1)
         {
-            menu1(floor, car);
+            menu1(&floor);
         }
         else if (answer == 2)
         {
-           
+           menu2(&floor);
         }
         else if (answer == 3)
         {
@@ -70,7 +93,7 @@ int main(){
         }
         else if (answer == 4)
         {
-            printAll(car);
+            printAll(&floor, &car);
         }
         else if (answer == 0)
             break;
