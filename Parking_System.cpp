@@ -26,13 +26,22 @@ void printMain(void)
 }
 void menu1(fl * floor){
     int n;
-    printf("주차 할 번호를 선택해주세요: ");
-    scanf("%d", &n);
-    printf("본인의 이름을 입력해주세요 : ");
-    scanf("%s",floor->rooms[n-1].carOwner);
-    printf("차 번호를 입력해주세요 : "); 
-    scanf("%s", floor->rooms[n-1].carNum);
-    printf("주차를 완료하였습니다!\n");
+    printf("주차 할 번호를 선택해주세요 (1~10까지 입력): ");
+    while(1){
+    	scanf("%d", &n);
+    	if(n>=1&&n<11){
+	    	printf("본인의 이름을 입력해주세요 : ");
+		    scanf("%s",floor->rooms[n-1].carOwner);
+		    printf("차 번호를 입력해주세요: "); 
+		    scanf("%s", floor->rooms[n-1].carNum);
+		    printf("주차를 완료하였습니다!\n");
+		    break;
+		}else{
+			printf("번호를 다시 입력해주세요^^ : ");
+			continue; 
+		}
+	}
+
 }
 
 void printAll(fl * floor, ca * car){
@@ -82,8 +91,6 @@ void menu3(fl * floor){
 int main(){
     fl floor;
     ca car;
-    //car = (carInfo)malloc(sizeof(carInfo));
-      //floor = (floorInfo)malloc(sizeof(floorInfo));
     int answer;
     while (1){
         printMain();
@@ -105,8 +112,10 @@ int main(){
         {
             printAll(&floor, &car);
         }
-        else if (answer == 0)
+        else if (answer == 0){ 
+        	printf("안녕히가세요!");
             break;
+    }
         else
         {
             printf("잘못 입력하셨습니다. 다시 입력해주세요.\n");
