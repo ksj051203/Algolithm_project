@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <windows.h>
 #define FLOOR 2
 #define ROOM 10
+int count[11];
 typedef struct carInfo{
     char carNum[100]={};
     char carOwner[100]={};
@@ -29,6 +31,12 @@ void menu1(fl * floor){
     printf("주차 할 번호를 선택해주세요 (1~10까지 입력): ");
     while(1){
     	scanf("%d", &n);
+    	if(count[n-1] == 1){
+    		printf("번호를 다시 선택해주세요^^ : ");
+    		continue; 
+		}
+		count[n-1]++;
+		
     	if(n>=1&&n<11){
 	    	printf("본인의 이름을 입력해주세요 : ");
 		    scanf("%s",floor->rooms[n-1].carOwner);
@@ -89,8 +97,11 @@ void menu3(fl * floor){
 
 
 int main(){
+	system("주차 관리 프로그램");
+	system("color 8f");
+	ca car;
     fl floor;
-    ca car;
+    fl floor2;
     int answer;
     while (1){
         printMain();
