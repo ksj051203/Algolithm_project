@@ -71,15 +71,14 @@ void menu2(fl * floor){
     printf("차 번호를 입력해주세요 : "); 
     scanf("%s", number);
     for(int i = 0; i<10; i++){
-       if(!(strncmp(name, floor->rooms[i].carOwner,3)&&strncmp(number, floor->rooms[i].carNum, 4))){
-          printf("출차를 완료하였습니다!\n");
-          
-          for(int j = 0;floor->rooms[i].carNum[j]!='\0';j++){
-             floor->rooms[i].carNum[j] = NULL;
-         }
-      }
-   }
-   
+        if(name == floor->rooms[i].carOwner&&number == floor->rooms[i].carNum){
+            printf("출차를 완료하였습니다!\n");
+           for(int j = 0;floor->rooms[i].carNum[j]!='\0';j++){
+               floor->rooms[i].carNum[j] = NULL;
+               count[i]--;
+           }
+        }
+    }
 }
    
 void menu3(fl * floor){ 
@@ -90,7 +89,7 @@ void menu3(fl * floor){
     printf("차 번호를 입력해주세요 : "); 
     scanf("%s", number);
     for(int i = 0; i<10; i++){
-       if(!(strncmp(name, floor->rooms[i].carOwner,3)&&strncmp(number, floor->rooms[i].carNum, 4)))
+       if(name == floor->rooms[i].carOwner&&number == floor->rooms[i].carNum)
           printf("%s님의 주차 위치는 %d번입니다!!!!!!!!!!!!\n",floor->rooms[i].carOwner, i+1);
    }
 }
@@ -102,34 +101,56 @@ int main(){
 	ca car;
     fl floor;
     fl floor2;
-    int answer;
-    while (1){
-        printMain();
-        scanf("%d", &answer);
- 
-        if (answer == 1)
-        {
-            menu1(&floor);
-        }
-        else if (answer == 2)
-        {
-           menu2(&floor);
-        }
-        else if (answer == 3)
-        {
-         	menu3(&floor);  
-        }
-        else if (answer == 4)
-        {
-            printAll(&floor, &car);
-        }
-        else if (answer == 0){ 
-        	printf("안녕히가세요!");
-            break;
-    }
-        else
-        {
-            printf("잘못 입력하셨습니다. 다시 입력해주세요.\n");
-        }
-    }
+    int answer, a;
+    while(1){
+    	printf("==================================================\n");
+		printf("0. 종료\n");
+	    printf("1. 일반 주차장\n");
+	    printf("2. 스택 주차장\n"); 
+	    
+	    printf("==================================================\n");
+	    printf("> 번호선택 : ");
+	    scanf("%d", &a);
+	    if(a==1){
+		    while (1){
+		        printMain();
+		        scanf("%d", &answer);
+		 
+		        if (answer == 1)
+		        {
+		            menu1(&floor);
+		        }
+		        else if (answer == 2)
+		        {
+		           menu2(&floor);
+		        }
+		        else if (answer == 3)
+		        {
+		         	menu3(&floor);  
+		        }
+		        else if (answer == 4)
+		        {
+		            printAll(&floor, &car);
+		        }
+		        else if (answer == 0){ 
+		        	printf("안녕히가세요!");
+		            break;
+		    	}
+		        else
+		        {
+		            printf("잘못 입력하셨습니다. 다시 입력해주세요.\n");
+		        }
+		    }
+		}
+		else if(a==2){
+		}
+		else if(a==0){
+			printf("안녕히가세요!");
+			break;
+		}
+		else{
+			printf("다시 입력해주세요");
+			continue;
+		}
+	}
 }
